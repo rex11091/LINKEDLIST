@@ -17,7 +17,6 @@ Student ali = {
     
   };
   
-  LinkList list;
   Student Baba = {
     "Baba",                  //name
     24,                     //age
@@ -27,6 +26,17 @@ Student ali = {
   Item itemBABA = {
     (Item *)-34534346,        //next
     (void *)&Baba,            //data
+    
+  };
+  Student Celina = {
+    "celina",                  //name
+    19,                     //age
+    55.5,                  //weight
+    1.65                    //height
+    };
+  Item itemCelina = {
+    (Item *)-34534346,        //next
+    (void *)&Celina,            //data
     
   };
   
@@ -54,7 +64,26 @@ void test_listInit_ensure_initialized_to_NULL_and_0(void)
   TEST_ASSERT_EQUAL(0,list.len);
 }
 
-void test_student(void)
+
+
+
+
+/**
+*           initial                     After adding Ali
+*                                 
+*           tail----+                     tail------+
+*           head----+                     head------+    
+*                   |                         
+*                  NULL
+*
+*
+*
+*
+*
+* Given an empty linked list . Add Ali(student) . Expect the linked contains Ali.
+**/
+
+void test_studentAli(void)
 {
   LinkList list;
   
@@ -86,5 +115,23 @@ void test_studentBaBa(void)
   TEST_ASSERT_NULL(itemBABA.next);
   TEST_ASSERT_EQUAL_PTR(&Baba,itemBABA.data);
   
+}
+
+void test_studentCelina(void)
+{
+  LinkList list;
+  list.head=&itemALi;
+  list.tail=&itemBABA;
+  list.len=2;
+  itemBABA.next=&itemCelina;
+  itemBABA.data=(Item *)-1;
+  
+  ListAdd(&list,&itemCelina);
+  
+  TEST_ASSERT_EQUAL_PTR(&itemALi,list.head);
+  TEST_ASSERT_EQUAL_PTR(&itemCelina,list.tail);
+  TEST_ASSERT_EQUAL(3,list.len);
+  TEST_ASSERT_NULL(itemCelina.next);
+  TEST_ASSERT_EQUAL_PTR(&Celina,itemCelina.data);
 }
 
