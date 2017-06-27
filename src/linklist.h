@@ -17,5 +17,7 @@ struct LinkList{
 };
 
 void listInit(LinkList *list);
+void ListAdd(LinkList *list, Item *item);
+Item *ListRemoveIDEither1stOrByName(LinkList *list, char  *name);
 
 #endif // _LINKLIST_H
