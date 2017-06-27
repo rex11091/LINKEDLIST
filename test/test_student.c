@@ -12,10 +12,10 @@ void tearDown(void)
 void test_student_(void)
 {
   Student ali = {
-    "Ali",
-    23,
-    72.35,
-    1.78
+    "Ali",					//name
+    23,						//age
+    72.35,					//weight
+    1.78					//height		
     };
     
     

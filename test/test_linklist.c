@@ -19,7 +19,7 @@ Student ali = {
     1.78                    //height
     };
   Item itemALi = {
-    (Item *)-345,        //next
+    (Item *)-345,        	//next
     (void *)&ali,            //data
     
   };
@@ -31,19 +31,19 @@ Student ali = {
     1.88                    //height
     };
   Item itemBABA = {
-    (Item *)-345,        //next
+    (Item *)-345,        ``````//next
     (void *)&Baba,            //data
     
   };
   Student Celina = {
-    "Celina",                  //name
+    "Celina",               //name
     19,                     //age
     55.5,                  //weight
-    1.65                    //height
+    1.65                   //height
     };
   Item itemCelina = {
-    (Item *)-34534346,        //next
-    (void *)&Celina,            //data
+    (Item *)-3453,        //next
+    (void *)&Celina,      //data
     
   };
   
@@ -65,24 +65,6 @@ void test_listInit_ensure_initialized_to_NULL_and_0(void)
   TEST_ASSERT_EQUAL(0,list.len);
 }
 
-
-
-
-
-/**
-*           initial                     After adding Ali
-*                                 
-*           tail----+                     tail------+
-*           head----+                     head------+    
-*                   |                         
-*                  NULL
-*
-*
-*
-*
-*
-* Given an empty linked list . Add Ali(student) . Expect the linked contains Ali.
-**/
 
 void test_studentAli(void)
 {
@@ -140,7 +122,46 @@ void test_studentCelina(void)
 }
 
 
-void test_student_remove_from_list_which_in_1st_list(void)
+//only 1 data in linklist and remove it
+void test_student_remove_1stdata_onlyOne_in_list(void)
+{
+	
+	LinkList list;
+	list.head =&itemALi;
+	list.tail=&itemALi;
+	itemALi.next = NULL;
+	list.len=1;
+  
+  ListRemoveIDEither1stOrByName(&list, "Ali");
+  
+  
+    TEST_ASSERT_EQUAL_PTR(NULL,list.head);
+	TEST_ASSERT_EQUAL_PTR(NULL,list.tail);
+	TEST_ASSERT_NULL(list.len);
+}
+
+// delete ali from ali baba  expect baba
+void test_student_remove_1stdata_from_2data_in_list(void)
+{
+	
+	LinkList list;
+	list.head =&itemALi;
+	list.tail=&itemBABA;
+	itemALi.next = &itemBABA;
+	itemBABA.next= NULL;
+	list.len=2;
+  
+  ListRemoveIDEither1stOrByName(&list, "Ali");
+  
+  TEST_ASSERT_EQUAL_PTR(&itemBABA,list.head);
+  TEST_ASSERT_EQUAL_PTR(&itemBABA,list.tail);
+  TEST_ASSERT_EQUAL(1,list.len);
+  TEST_ASSERT_NULL(itemBABA.next);
+  TEST_ASSERT_EQUAL_PTR(&Baba,itemBABA.data);
+}
+
+// delete ali from ali baba celine expect baba celine
+void test_student_remove_1stdata_from_3data_in_list(void)
 {
 	
 	  LinkList list;
@@ -160,4 +181,68 @@ void test_student_remove_from_list_which_in_1st_list(void)
   TEST_ASSERT_NULL(itemCelina.next);
   TEST_ASSERT_EQUAL_PTR(&Celina,itemCelina.data);
 }
+
+//delete last data from linklist ali celina expecet ali
+void test_student_remove_from_data_which_in_lastdata_list(void)
+{
+	
+	LinkList list;
+	list.head =&itemALi;
+	list.tail = &itemCelina;
+	itemALi.next = &itemCelina;
+	itemCelina.next = NULL;
+	list.len=2;
+  
+  ListRemoveIDEither1stOrByName(&list, "Celina");
+  
+  TEST_ASSERT_EQUAL_PTR(&itemALi,list.head);
+  TEST_ASSERT_EQUAL_PTR(&itemALi,list.tail);
+  TEST_ASSERT_EQUAL(1,list.len);
+  TEST_ASSERT_NULL(itemALi.next);
+}
+
+//delete last data from linklist ali abu celina expecet ali abu
+void test_student_remove_from_list_which_in_lastdata_list(void)
+{
+	
+	LinkList list;
+	list.head =&itemALi;
+	list.tail = &itemCelina;
+	itemALi.next = &itemBABA;
+	itemBABA.next = &itemCelina;
+	itemCelina.next = NULL;
+	list.len=3;
+  
+  ListRemoveIDEither1stOrByName(&list, "Celina");
+  
+  TEST_ASSERT_EQUAL_PTR(&itemALi,list.head);
+  TEST_ASSERT_EQUAL_PTR(&itemBABA,list.tail);
+  TEST_ASSERT_EQUAL_PTR(&itemBABA,itemALi.next);
+  TEST_ASSERT_EQUAL(2,list.len);
+  TEST_ASSERT_NULL(itemBABA.next);
+}
+
+//delete middle data(abu) from linklist ali abu celina expecet ali Celina
+void test_student_remove_from_list_which_in_middle_list(void)
+{
+	
+	LinkList list;
+	list.head =&itemALi;
+	list.tail = &itemCelina;
+	itemALi.next = &itemBABA;
+	itemBABA.next = &itemCelina;
+	itemCelina.next = NULL;
+	list.len=3;
+  
+  ListRemoveIDEither1stOrByName(&list, "Baba");
+  
+  TEST_ASSERT_EQUAL_PTR(&itemALi,list.head);
+  TEST_ASSERT_EQUAL_PTR(&itemCelina,list.tail);
+  TEST_ASSERT_EQUAL_PTR(&itemCelina,itemALi.next);
+  TEST_ASSERT_EQUAL(2,list.len);
+  TEST_ASSERT_NULL(itemCelina.next);
+}
+
+
+
 

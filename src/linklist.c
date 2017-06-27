@@ -32,18 +32,26 @@ Item *ListRemoveIDEither1stOrByName(LinkList *list, char  *name)
 	
 	if(list->head == NULL)
 	return NULL;
-	//delete if is  the first data
+
 	
 	else
-	{
-		//compare to find name 
+	{	/*
+		*compare to by findding name 
+		*temp1---+			temp2---+										*temp1---+		temp2---+
+	|			|				   |													|			    |
+				|				   |	        ->after finding name such as abu				|			    |
+				NULL				  ALi												Ali--------------ABU---NULL
+		*/
 		while(strcmp(((Student *)TempToPoint2->data)->name,name) != 0)
 		{
 			TempToPoint1 = TempToPoint2;
 			TempToPoint2 = TempToPoint2->next;
 		}
-		// here is found thn want delete the last data;
-		 if(TempToPoint2 = list->head)
+		/* here is found and delete the lstdata;
+		 * depends on conditions eitheir only 1 data or ...
+		 * if one data only init it
+		*/
+		 if(TempToPoint2 == list->head)
 		 {
 			 if(list->head == list->tail)
 			 {
@@ -58,7 +66,7 @@ Item *ListRemoveIDEither1stOrByName(LinkList *list, char  *name)
 			 }
 		 }
 			//here is delete last data
-		else if	(TempToPoint2=list->tail)
+		else if	(TempToPoint2 == list->tail)
 		{
 			list->tail = TempToPoint1;
 			TempToPoint1->next = NULL;
