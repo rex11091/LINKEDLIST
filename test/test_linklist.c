@@ -31,7 +31,7 @@ Student ali = {
     1.88                    //height
     };
   Item itemBABA = {
-    (Item *)-345,        ``````//next
+    (Item *)-345,             //next
     (void *)&Baba,            //data
     
   };
